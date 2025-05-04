@@ -1,0 +1,25 @@
+{
+    "files.exclude": {
+        "ci.sh": true,
+    },
+    "emeraldwalk.runonsave": {
+        "autoClearConsole": true,
+        "shell": "bash",
+        "commands": [
+            {
+                "message": "Compiling ci.sh",
+                "messageAfter": "Compiling ci.sh done",
+                "match": ".*.sh",
+                "cmd": "./build.sh",
+                "showElapsed": false
+            },
+            {
+                "message": "Testing ci.sh",
+                "messageAfter": "Testing ci.sh done",
+                "match": ".*.sh",
+                "cmd": "./test.sh",
+                "showElapsed": false
+            },
+        ]
+    }
+}

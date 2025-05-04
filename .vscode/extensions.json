@@ -1,0 +1,8 @@
+{
+    "recommendations": [
+        "davidanson.vscode-markdownlint",
+        "timonwong.shellcheck",
+        "editorconfig.editorconfig",
+        "emeraldwalk.runonsave"
+    ]
+}
