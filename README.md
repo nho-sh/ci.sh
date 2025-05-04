@@ -12,6 +12,10 @@ curl -fsSL "https://raw.githubusercontent.com/nho-sh/ci.sh/main/ci.sh" -o ci.sh 
 wget -qO ci.sh "https://raw.githubusercontent.com/nho-sh/ci.sh/main/ci.sh" && chmod +x ci.sh
 ```
 
+Tips:
+
+- you probably want to add `ci.sh` and `ci-output/` to your `.gitignore` and other ignore files.
+
 ### Extra installation options
 
 - Only download if `ci.sh` is missing, prefix with:
