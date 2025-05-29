@@ -12,10 +12,6 @@ curl -fsSL "https://raw.githubusercontent.com/nho-sh/ci.sh/main/ci.sh" -o ci.sh 
 wget -qO ci.sh "https://raw.githubusercontent.com/nho-sh/ci.sh/main/ci.sh" && chmod +x ci.sh
 ```
 
-Tips:
-
-- you probably want to add `ci.sh` and `ci-output/` to your `.gitignore` and other ignore files.
-
 ### Extra installation options
 
 - Only download if `ci.sh` is missing, prefix with:
@@ -40,6 +36,8 @@ function cish_run() {
 
 function cish_teardown() {
     echo "Teardown ok"
+    # $1 is the cish_setup exit code
+    # $2 is the cish_run exit code
 }
 
 source "./ci.sh"
@@ -86,7 +84,8 @@ The following values can be changed to your liking.
 - `ERROR_MESSAGE_SETUP`
 - `ERROR_MESSAGE_RUN`
 - `ERROR_MESSAGE_TEARDOWN`
-- `EXIT_CODE`
+- `SETUP_EXIT_CODE`
+- `RUN_EXIT_CODE`
 - `TEARDOWN_EXIT_CODE`
 
 Note: internal values are prefixed with `_CISH_...` and should be left alone.

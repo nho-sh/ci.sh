@@ -36,8 +36,12 @@ if [ "$?" != "0" ]; then
 fi
 
 # Variables
-EXIT_CODE=0
+SETUP_EXIT_CODE=0
+SETUP_SUMMARY=""
+RUN_EXIT_CODE=0
+RUN_SUMMARY=""
 TEARDOWN_EXIT_CODE=0
+TEARDOWN_SUMMARY=""
 
 {
     logSectionBegin 'Setup'
@@ -45,12 +49,14 @@ TEARDOWN_EXIT_CODE=0
     printSystemInfo
 
     cish_setup
-    EXIT_CODE=$?
+    SETUP_EXIT_CODE=$?
 
-    if [ "$EXIT_CODE" -eq 0 ]; then
+    if [ "$SETUP_EXIT_CODE" -eq 0 ]; then
         cishLog "Setup okay"
-
+        SETUP_SUMMARY="$_CISH_EMOJI_OKAY"
     else
+        SETUP_SUMMARY="$_CISH_EMOJI_ERROR"
+
         if [ "$_CISH_CI_SUITE" = 'teamcity' ]; then
             # Teamcity compatible message
             # https://www.jetbrains.com/help/teamcity/service-messages.html#Reporting+Build+Status
@@ -71,15 +77,18 @@ echo # add some whitespace in the logs
 
 {
     # Only run if setup didn't error
-    if [ "$EXIT_CODE" = "0" ]; then
+    if [ "$SETUP_EXIT_CODE" = "0" ]; then
         logSectionBegin 'Run'
 
         cish_run
-        EXIT_CODE=$?
+        RUN_EXIT_CODE=$?
 
-        if [ "$EXIT_CODE" = "0" ]; then
+        if [ "$RUN_EXIT_CODE" = "0" ]; then
             cishLog "Run successful"
+            RUN_SUMMARY="$_CISH_EMOJI_OKAY"
         else
+            RUN_SUMMARY="$_CISH_EMOJI_ERROR"
+
             if [ "$_CISH_CI_SUITE" = 'teamcity' ]; then
                 # Teamcity compatible message
                 # https://www.jetbrains.com/help/teamcity/service-messages.html#Reporting+Build+Status
@@ -110,12 +119,15 @@ echo # add some whitespace in the logs
     # The teardown does not need a subshell, because it should not be running
     # with `set -e` anyway, so that it can clean up and log as much as possible
     # By not running in a subshell, any bug in the teardown step will be immediatly visible
-    cish_teardown "$EXIT_CODE"
+    cish_teardown "$SETUP_EXIT_CODE" "$RUN_EXIT_CODE"
     TEARDOWN_EXIT_CODE=$?
 
     if [ "$TEARDOWN_EXIT_CODE" = "0" ]; then
         cishLog "Teardown okay"
+        TEARDOWN_SUMMARY="$_CISH_EMOJI_OKAY"
     else
+        TEARDOWN_SUMMARY="$_CISH_EMOJI_ERROR"
+
         if [ "$_CISH_CI_SUITE" = 'teamcity' ]; then
             # Teamcity compatible message
             # https://www.jetbrains.com/help/teamcity/service-messages.html#Reporting+Build+Status
@@ -146,8 +158,11 @@ if [ "$CISH_EXIT_MESSAGE" != "" ]; then
     cishLog "$CISH_EXIT_MESSAGE"
 fi
 
+echo "S:$SETUP_SUMMARY R:$RUN_SUMMARY T:$TEARDOWN_SUMMARY"
+
 # coalesce with teardown exit code
 FINAL_EXIT_CODE=0
-[ $EXIT_CODE -ne 0 ] && FINAL_EXIT_CODE=$EXIT_CODE
+[ $SETUP_EXIT_CODE -ne 0 ] && FINAL_EXIT_CODE=$SETUP_EXIT_CODE
+[ $RUN_EXIT_CODE -ne 0 ] && FINAL_EXIT_CODE=$RUN_EXIT_CODE
 [ $TEARDOWN_EXIT_CODE -ne 0 ] && FINAL_EXIT_CODE=$TEARDOWN_EXIT_CODE
 return $FINAL_EXIT_CODE

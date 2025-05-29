@@ -13,6 +13,7 @@ else
 fi
 
 if isTruthy "$CISH_PRINT_EMOJI"; then
+    _CISH_EMOJI_OKAY="✅"
     _CISH_EMOJI_ERROR="❌"
     _CISH_EMOJI_WARN="⚠️"
     _CISH_EMOJI_BEGIN="🚀" # 🚀 🔷 ▶
@@ -21,6 +22,7 @@ if isTruthy "$CISH_PRINT_EMOJI"; then
     _CISH_EMOJI_PC="🖥️"
     _CISH_EMOJI_CHRONO="⏱️"
 else
+    _CISH_EMOJI_OKAY="✓"
     _CISH_EMOJI_ERROR="X"
     _CISH_EMOJI_WARN="!"
     _CISH_EMOJI_BEGIN=">"
