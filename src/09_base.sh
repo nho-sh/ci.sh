@@ -60,12 +60,12 @@ TEARDOWN_SUMMARY=""
         if [ "$_CISH_CI_SUITE" = 'teamcity' ]; then
             # Teamcity compatible message
             # https://www.jetbrains.com/help/teamcity/service-messages.html#Reporting+Build+Status
-            echo "##teamcity[message text='Setup failed in $(_cishGetLastSection exitcode=$SETUP_EXIT_CODE)' errorDetails='See lines above' status='ERROR']"
+            echo "##teamcity[message text='Setup failed in $(_cishGetLastSection) exitcode=$SETUP_EXIT_CODE' errorDetails='See lines above' status='ERROR']"
 
             # TODO: add gitlab/github
 
         else
-            cishLog "$_CISH_EMOJI_ERROR Setup failed in $(_cishGetLastSection exitcode=$SETUP_EXIT_CODE)"
+            cishLog "$_CISH_EMOJI_ERROR Setup failed in $(_cishGetLastSection) exitcode=$SETUP_EXIT_CODE"
 
         fi
     fi
@@ -92,12 +92,12 @@ echo # add some whitespace in the logs
             if [ "$_CISH_CI_SUITE" = 'teamcity' ]; then
                 # Teamcity compatible message
                 # https://www.jetbrains.com/help/teamcity/service-messages.html#Reporting+Build+Status
-                echo "##teamcity[message text='Run failed in $(_cishGetLastSection exitcode=$RUN_EXIT_CODE)' errorDetails='See lines above' status='ERROR']"
+                echo "##teamcity[message text='Run failed in $(_cishGetLastSection) exitcode=$RUN_EXIT_CODE' errorDetails='See lines above' status='ERROR']"
 
                 # TODO: add gitlab/github
 
             else
-                cishLog "$_CISH_EMOJI_ERROR Run failed in $(_cishGetLastSection exitcode=$RUN_EXIT_CODE)"
+                cishLog "$_CISH_EMOJI_ERROR Run failed in $(_cishGetLastSection) exitcode=$RUN_EXIT_CODE"
 
             fi
         fi
@@ -131,12 +131,12 @@ echo # add some whitespace in the logs
         if [ "$_CISH_CI_SUITE" = 'teamcity' ]; then
             # Teamcity compatible message
             # https://www.jetbrains.com/help/teamcity/service-messages.html#Reporting+Build+Status
-            echo "##teamcity[message text='Teardown failed in $(_cishGetLastSection exitcode=$TEARDOWN_EXIT_CODE)' errorDetails='See lines above' status='ERROR']"
+            echo "##teamcity[message text='Teardown failed in $(_cishGetLastSection) exitcode=$TEARDOWN_EXIT_CODE' errorDetails='See lines above' status='ERROR']"
 
             # TODO: add gitlab/github
 
         else
-            cishLog "$_CISH_EMOJI_ERROR Teardown failed in $(_cishGetLastSection exitcode=$TEARDOWN_EXIT_CODE)"
+            cishLog "$_CISH_EMOJI_ERROR Teardown failed in $(_cishGetLastSection) exitcode=$TEARDOWN_EXIT_CODE"
 
         fi
 
