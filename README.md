@@ -28,6 +28,12 @@ curl -fsSL "https://raw.githubusercontent.com/nho-sh/ci.sh/main/ci.sh" -o ci.sh 
 
 function cish_setup() {
     echo "Setup ok"
+
+    # Properly failing if a required step fails
+    # by using fallthroughs (same in run/teardown)
+    #    || return <exitcode>
+    echo "Haystack" | grep "needle" || return 1
+
 }
 
 function cish_run() {
