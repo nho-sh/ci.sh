@@ -6,7 +6,9 @@ function cish_setup() {
 }
 
 function cish_run() {
-    sleep 0.4s
+    cishLogTimeElapsed "Starting cish_run"
+    sleep 1.1s
+    cishLogTimeElapsed "Took a nap"
     echo "Run ok"
 }
 

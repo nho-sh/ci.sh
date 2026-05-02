@@ -302,7 +302,12 @@ function cishFileNotEmpty() {
     [ -f "$1" ] && [ -s "$1" ]
 }
 
-function cishUserNotification {
+function cishLogTimeElapsed() {
+    DURATION=$SECONDS
+    cishLog "  time elapsed: $((DURATION / 60))m $((DURATION % 60))s $_CISH_EMOJI_CHRONO $@"
+}
+
+function cishUserNotification() {
     cishLog "$1"
 
     MSG="$1"

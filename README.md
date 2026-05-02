@@ -68,7 +68,8 @@ source "./ci.sh"
 | `cishFileEmpty "..."` | Check if a file exists AND is empty |
 | `cishFileNotEmpty "..."` | Check if a file exists AND is NOT empty |
 | `cishLog "..." "..." "..."` | Like `echo`, but CI friendlier |
-| `cishUserNotification "..."`| Shows a popup notification, using your windowing system. Best effort. |
+| `cishLogTimeElapsed "..." "..." "..."` | Echos out how long the `ci.sh` script has been running, and your arguments. |
+| `cishUserNotification "..."` | Shows a popup notification, using your windowing system. Best effort. |
 
 ## ENV Configuration
 
